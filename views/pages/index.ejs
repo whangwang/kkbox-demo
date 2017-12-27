@@ -6,9 +6,179 @@
     <script src="/public/index.js"></script>
   </head>
   <body>
-
+    <%- include ../partials/footer %>
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 search-area">
+            <h1>KKBOX DEMO</h1>
+            <div class="input">
+              <input class="search-input" type="text" placeholder="Type Keyword..." />
+              <div class="input-baseline"></div>
+              <div class="input-baseline focus"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container search-result">
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+      <div class="result-block">
+        <div class="song-right">
+          <font class="song-rating-change">3</font>
+          <font class="song-add"></font>
+        </div>
+        <h5 class="song-rating">1</h5>
+        <div class="split-line"></div>
+        <div class="square-img"></div>
+        <div class="song-info">
+          <h5>Song Name</h5>
+          <p>Artist | 2017 <font>Album Name</font></p>
+        </div>
+      </div>
+    </div>
   </body>
   <script>
-
+    $(document).ready(function(){
+        $('input[type=text]').focus(function(){
+          $(this).parent().find('.input-baseline.focus').css('opacity','1');
+          $(this).parent().find('.input-baseline.focus').css('width','100%');
+          $(this).parent().find('.input-baseline.focus').css('margin-left','0%');
+        }).blur(function(){
+          $(this).parent().find('.input-baseline.focus').css('opacity','0');
+          $(this).parent().find('.input-baseline.focus').css('width','0%');
+          $(this).parent().find('.input-baseline.focus').css('margin-left','50%');
+        });
+        $('body').on('keypress','.search-input',function(){
+          $('.search-area>h1').stop().animate({ fontSize : '21px' },500);
+          $('.search-input').stop().animate({ marginTop : '18px' },500);
+          $('.search-area').stop().animate({ marginTop: '18px' },500,function(){
+            $('.container-fluid').css('position','fixed');
+            $('.container-fluid').css('width','100%');
+          });
+          $('.container-fluid').css('background-color','#FCFCFC');
+        });
+    });
+    $(window).scroll(function(){
+      $('.container-fluid').css('box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
+      $('.container-fluid').css('-moz-box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
+      $('.container-fluid').css('-webkit-box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
+    });
   </script>
 </html>
