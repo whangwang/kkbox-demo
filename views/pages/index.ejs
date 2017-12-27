@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="container search-result">
-      <div class="result-block">
+  <!--    <div class="result-block">
         <div class="song-right">
           <font class="song-rating-change">3</font>
           <font class="song-add"></font>
@@ -34,128 +34,13 @@
           <h5>Song Name</h5>
           <p>Artist | 2017 <font>Album Name</font></p>
         </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
-      <div class="result-block">
-        <div class="song-right">
-          <font class="song-rating-change">3</font>
-          <font class="song-add"></font>
-        </div>
-        <h5 class="song-rating">1</h5>
-        <div class="split-line"></div>
-        <div class="square-img"></div>
-        <div class="song-info">
-          <h5>Song Name</h5>
-          <p>Artist | 2017 <font>Album Name</font></p>
-        </div>
-      </div>
+      </div>  -->
     </div>
+    <div class="footer-fix"></div>
   </body>
   <script>
     $(document).ready(function(){
+        var i = 0;
         $('input[type=text]').focus(function(){
           $(this).parent().find('.input-baseline.focus').css('opacity','1');
           $(this).parent().find('.input-baseline.focus').css('width','100%');
@@ -171,10 +56,159 @@
           $('.search-area').stop().animate({ marginTop: '18px' },500,function(){
             $('.container-fluid').css('position','fixed');
             $('.container-fluid').css('width','100%');
+            $('.footer-fix').addClass('fix-footer');
           });
           $('.container-fluid').css('background-color','#FCFCFC');
         });
+        $('body').on('change','.search-input',function(){
+          console.log('test');
+          const data = {
+            keyword: 'test',
+            limit: 10
+          }
+          if(i==0){
+            $.ajax('/ajax_search', {
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function(rtn) {
+                  var result;
+                  result = rtn.data.tracks;
+                  console.log(result);
+                  for(var i = 0; i < Math.min(result.data.length,10); i++){
+                    console.log(result.data[i].id);
+                  }
+
+                  $('.rank').removeClass('rank');
+                  for(var i = 0; i < result.data.length; i++){
+                    var el = $('.block-'+result.data[i].id);
+                    if( el.length == 0 ){
+                      var margin = ($('.block').length - 1 )*105;
+                      var tag = result.data[i].id;
+                      var margin_init = margin ;
+                      $('.search-result').append('<div class="result-block block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;margin-top:'+margin_init+'px;"><div class="song-right"><font class="song-rating-change">3</font><font class="song-add"></font></div><h5 class="song-rating">'+(i+1)+'</h5><div class="split-line"></div><div class="square-img" style="background-image: url('+result.data[i].album.images[0].url+');"></div><div class="song-info"><h5>'+result.data[i].name+'</h5><p>'+result.data[i].album.artist.name+' | '+result.data[i].album.release_date.split('-')[0]+' <font>'+result.data[i].album.name+'</font></p></div></div>');
+                      //$('.block').eq($('.block').length - 1).after('<div class="block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;background-color: '+color_syntax+'; ;margin-top: '+margin_init+'px;">'+tag+'</div>');
+                      $('.block-'+tag).animate({
+                        marginTop: ((i+1)*105) + 'px',
+                        opacity: 1
+                      },500,function(){
+
+                      });
+                    }else{
+                      el.addClass('rank');
+                      var index = i;
+                    /*  if( el.data('id')<index ){
+                        console.log(el.html() + ' ' + el.data('id') + '<' + index)
+                        checklower(el,0);
+                      }else {
+                        console.log(el.html() + ' ' + el.data('id') + '>' + index)
+                        checklower(el,1);
+                      } */
+                      //alert(index);
+                      el.animate({
+                        marginTop: ((i+1)*105) + 'px'
+                      },500,function(){
+                        $(this).removeClass('lower');
+                        $(this).removeClass('higher');
+                        var index = parseInt($(this).css('margin-top'))/105;
+                        index--;
+                        $(this).data('id',index);
+                      });
+                    }
+                  }
+                  var block_arr = $('.block').not('.input_block').not('.rank');
+                  for(var i = 0; i < block_arr.length; i++){
+                    console.log($(block_arr[i]));
+                    $(block_arr[i]).animate({
+                      marginTop: '+=' + $(window).height() + 'px',
+                      opacity: 0
+                    },500,function(){
+                      $(this).remove();
+                    });
+                  }
+
+                },
+                error  : function() {
+                  console.log('error');
+                }
+            });
+          }else{
+            $.ajax('/ajax_search_album', {
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function(rtn) {
+                  var result;
+                  result = rtn.data;
+                  console.log(result);
+                  for(var i = 0; i < Math.min(result.data.length,10); i++){
+                    console.log(result.data[i].id);
+                  }
+
+                  $('.rank').removeClass('rank');
+                  for(var i = 0; i < result.data.length; i++){
+                    var el = $('.block-'+result.data[i].id);
+                    if( el.length == 0 ){
+                      var margin = ($('.block').length - 1 )*105;
+                      var tag = result.data[i].id;
+                      var margin_init = margin ;
+                      $('.search-result').append('<div class="result-block block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;margin-top:'+margin_init+'px;"><div class="song-right"><font class="song-rating-change">0</font><font class="song-add"></font></div><h5 class="song-rating">'+(i+1)+'</h5><div class="split-line"></div><div class="square-img" style="background-image: url(https://i.kfs.io/album/global/10788262,0v1/fit/160x160.jpg);"></div><div class="song-info"><h5>'+result.data[i].name+'</h5><p>Justin Bieber | 2015 <font>Purpose</font></p></div></div>');
+                      //$('.block').eq($('.block').length - 1).after('<div class="block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;background-color: '+color_syntax+'; ;margin-top: '+margin_init+'px;">'+tag+'</div>');
+                      $('.block-'+tag).animate({
+                        marginTop: ((i+1)*105) + 'px',
+                        opacity: 1
+                      },500,function(){
+
+                      });
+                    }else{
+                      el.addClass('rank');
+                      var index = i;
+                    /*  if( el.data('id')<index ){
+                        console.log(el.html() + ' ' + el.data('id') + '<' + index)
+                        checklower(el,0);
+                      }else {
+                        console.log(el.html() + ' ' + el.data('id') + '>' + index)
+                        checklower(el,1);
+                      } */
+                      //alert(index);
+                      el.animate({
+                        marginTop: ((i+1)*105) + 'px'
+                      },500,function(){
+                        $(this).removeClass('lower');
+                        $(this).removeClass('higher');
+                        var index = parseInt($(this).css('margin-top'))/105;
+                        index--;
+                        $(this).data('id',index);
+                        var change = parseInt($(this).find('.song-rating').html())-index-1;
+                        $(this).find('.song-rating').html(index+1);
+                        $(this).find('.song-rating-change').html(change);
+                      });
+                    }
+                  }
+                  var block_arr = $('.block').not('.input_block').not('.rank');
+                  for(var i = 0; i < block_arr.length; i++){
+                    console.log($(block_arr[i]));
+                    $(block_arr[i]).animate({
+                      marginTop: '+=' + $(window).height() + 'px',
+                      opacity: 0
+                    },500,function(){
+                      $(this).remove();
+                    });
+                  }
+
+                },
+                error  : function() {
+                  console.log('error');
+                }
+            });
+          }
+          i++;
+
+        });
     });
+
+
+
     $(window).scroll(function(){
       $('.container-fluid').css('box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
       $('.container-fluid').css('-moz-box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');

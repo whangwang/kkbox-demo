@@ -19,7 +19,8 @@ body{
   margin-top: calc( 50vh - 188px);
 }
 .search-result{
-  padding-top: 170px;
+  padding-top: 100px;
+  position: relative;
 }
 .result-block{
   background-color: #FCFCFC;
@@ -43,11 +44,14 @@ body{
 .square-img{
   width: 50px;
   height: 50px;
-  background-color: white;
+  background-color: transparent;
   margin-top: 17.5px;
   float: left;
   margin-left: 25px;
   margin-right: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .song-info{
   padding-top: 10px;
@@ -74,4 +78,14 @@ body{
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+}
+.block{
+  position: absolute;
+  width: calc( 100% - 30px );
+}
+.fix-footer{
+  height: 100px;
+  position: absolute;
+  margin-top: 1155px;
+  width: 100%;
 }
