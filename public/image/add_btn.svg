@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 21.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" id="圖層_3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#47A5CC;}
-	.st1{fill:#F5F5F5;}
 </style>
-<circle class="st0" cx="18.5" cy="18.5" r="18.5"/>
-<g>
-	<path class="st1" d="M19.4,18.6H30v1.7H19.4v10.6h-1.7V20.3H7v-1.7h10.7V7.9h1.7V18.6z"/>
-</g>
+<path class="st0" d="M18.5,3.2C10,3.2,3.2,10,3.2,18.5S10,33.8,18.5,33.8S33.8,27,33.8,18.5S27,3.2,18.5,3.2z M9.7,13.1h6.8v1.9H9.7
+	V13.1z M9.7,16.5h9.8v2H9.7V16.5z M27.3,25.4H9.7v-1.9h17.5V25.4z M27.3,21.9H9.7V20h17.5V21.9z M27.3,18.5h-2v-2h2V18.5z
+	 M27.3,15.3h-3.6v3.2h-2.6v-3.2H18v-2.5h3.1V9.6h2.6v3.2h3.6V15.3z"/>
+<path class="st0" d="M18.5,0.2C8.4,0.2,0.2,8.4,0.2,18.5s8.2,18.3,18.3,18.3s18.3-8.2,18.3-18.3S28.6,0.2,18.5,0.2z M18.5,35.1
+	c-9.1,0-16.6-7.4-16.6-16.6S9.4,1.9,18.5,1.9s16.6,7.4,16.6,16.6S27.6,35.1,18.5,35.1z"/>
 </svg>

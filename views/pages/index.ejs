@@ -7,6 +7,7 @@
   </head>
   <body>
     <%- include ../partials/footer %>
+    <div class="progressbar"></div>
     <div class="container-fluid">
       <div class="container">
         <div class="row">
@@ -22,6 +23,12 @@
       </div>
     </div>
     <div class="container search-result">
+      <div class="col-md-3 search-playlist">
+        <p class="playlist-header">Your Plalist</p>
+      </div>
+      <div class="col-md-9 search-result-content">
+
+      </div>
   <!--    <div class="result-block">
         <div class="song-right">
           <font class="song-rating-change">3</font>
@@ -41,6 +48,25 @@
   <script>
     $(document).ready(function(){
         var i = 0;
+        $('body').on('click','.playlist-remove',function(){
+          var tar = $(this).parent().attr('sid');
+          $('.song-'+String(tar)).remove();
+        });
+        $('body').on('click','.song-add',function(){
+          var artist = String($(this).parent().parent().find('.song-info').find('p').text()).split("|")[0];
+          var bg = $(this).parent().parent().find('.square-img').css('background-image')
+          bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
+          $('.search-playlist').append('<hr class="song-'+String($(this).parent().parent().attr('sid'))+'"><div class="playlist-block song-'+String($(this).parent().parent().attr('sid'))+'" sid="'+String($(this).parent().parent().attr('sid'))+'"><div class="glyphicon glyphicon-remove-sign playlist-remove"></div><div class="song-img" style="background-image: url('+bg+');" ></div><p>'+$(this).parent().parent().find('.song-info').find('h5').html()+'</p><p>'+artist+'</p></div>');
+        });
+        $('body').on({
+          'mouseenter': function(){
+            $(this).find('.playlist-remove').show();
+          },
+          'mouseleave': function(){
+            $(this).find('.playlist-remove').hide();
+          }
+        },'.playlist-block');
+
         $('input[type=text]').focus(function(){
           $(this).parent().find('.input-baseline.focus').css('opacity','1');
           $(this).parent().find('.input-baseline.focus').css('width','100%');
@@ -62,6 +88,9 @@
         });
         $('body').on('change','.search-input',function(){
           console.log('test');
+          $('.search-playlist').show();
+          $('.progressbar').css('opacity','1');
+          $('.progressbar').css('width','15%');
           const data = {
             keyword: 'test',
             limit: 10
@@ -72,13 +101,14 @@
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function(rtn) {
+                  $('.progressbar').css('width','45%');
                   var result;
                   result = rtn.data.tracks;
                   console.log(result);
                   for(var i = 0; i < Math.min(result.data.length,10); i++){
                     console.log(result.data[i].id);
                   }
-
+                  $('.search-playlist').css('opacity','1');
                   $('.rank').removeClass('rank');
                   for(var i = 0; i < result.data.length; i++){
                     var el = $('.block-'+result.data[i].id);
@@ -86,13 +116,19 @@
                       var margin = ($('.block').length - 1 )*105;
                       var tag = result.data[i].id;
                       var margin_init = margin ;
-                      $('.search-result').append('<div class="result-block block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;margin-top:'+margin_init+'px;"><div class="song-right"><font class="song-rating-change">3</font><font class="song-add"></font></div><h5 class="song-rating">'+(i+1)+'</h5><div class="split-line"></div><div class="square-img" style="background-image: url('+result.data[i].album.images[0].url+');"></div><div class="song-info"><h5>'+result.data[i].name+'</h5><p>'+result.data[i].album.artist.name+' | '+result.data[i].album.release_date.split('-')[0]+' <font>'+result.data[i].album.name+'</font></p></div></div>');
+                      $('.search-result-content').append('<div class="result-block block block-'+tag+' rank" sid="'+tag+'" data-id="'+(i+1)+'" style="opacity: 0;margin-top:'+margin_init+'px;"><div class="song-right"><font class="song-rating-change" style="background-image: url(/public/image/rating-new.svg);">&nbsp;&nbsp;&nbsp;&nbsp;</font><font class="song-add"></font></div><h5 class="song-rating">'+(i+1)+'</h5><div class="split-line"></div><div class="square-img" style="background-image: url('+result.data[i].album.images[0].url+');"></div><div class="song-info"><h5>'+result.data[i].name+'</h5><p>'+result.data[i].album.artist.name+' | '+result.data[i].album.release_date.split('-')[0]+' <font>'+result.data[i].album.name+'</font></p></div></div>');
                       //$('.block').eq($('.block').length - 1).after('<div class="block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;background-color: '+color_syntax+'; ;margin-top: '+margin_init+'px;">'+tag+'</div>');
+                      $('.block-'+tag).find('.song-rating-change').css('opacity','0');
                       $('.block-'+tag).animate({
                         marginTop: ((i+1)*105) + 'px',
                         opacity: 1
                       },500,function(){
-
+                        $(this).find('.song-rating-change').css('opacity','1');
+                        $('.progressbar').css('width','100%');
+                        var t = setTimeout(function(){
+                          $('.progressbar').css('opacity','0');
+                          $('.progressbar').css('width','0%');
+                        },300);
                       });
                     }else{
                       el.addClass('rank');
@@ -113,6 +149,11 @@
                         var index = parseInt($(this).css('margin-top'))/105;
                         index--;
                         $(this).data('id',index);
+                        $('.progressbar').css('width','100%');
+                        var t = setTimeout(function(){
+                          $('.progressbar').css('opacity','0');
+                          $('.progressbar').css('width','0%');
+                        },300);
                       });
                     }
                   }
@@ -138,6 +179,8 @@
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function(rtn) {
+                  $('.progressbar').css('width','45%');
+                  $('.search-playlist').css('opacity','1');
                   var result;
                   result = rtn.data;
                   console.log(result);
@@ -152,13 +195,14 @@
                       var margin = ($('.block').length - 1 )*105;
                       var tag = result.data[i].id;
                       var margin_init = margin ;
-                      $('.search-result').append('<div class="result-block block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;margin-top:'+margin_init+'px;"><div class="song-right"><font class="song-rating-change">0</font><font class="song-add"></font></div><h5 class="song-rating">'+(i+1)+'</h5><div class="split-line"></div><div class="square-img" style="background-image: url(https://i.kfs.io/album/global/10788262,0v1/fit/160x160.jpg);"></div><div class="song-info"><h5>'+result.data[i].name+'</h5><p>Justin Bieber | 2015 <font>Purpose</font></p></div></div>');
+                      $('.search-result-content').append('<div class="result-block block block-'+tag+' rank" sid="'+tag+'" data-id="'+(i+1)+'" style="opacity: 0;margin-top:'+margin_init+'px;"><div class="song-right"><font class="song-rating-change" style="background-image: url(/public/image/rating-new.svg);">&nbsp;&nbsp;&nbsp;&nbsp;</font><font class="song-add"></font></div><h5 class="song-rating">'+(i+1)+'</h5><div class="split-line"></div><div class="square-img" style="background-image: url(https://i.kfs.io/album/global/10788262,0v1/fit/160x160.jpg);"></div><div class="song-info"><h5>'+result.data[i].name+'</h5><p>Justin Bieber | 2015 <font>Purpose</font></p></div></div>');
                       //$('.block').eq($('.block').length - 1).after('<div class="block block-'+tag+' rank" data-id="'+(i+1)+'" style="opacity: 0;background-color: '+color_syntax+'; ;margin-top: '+margin_init+'px;">'+tag+'</div>');
+                      $('.block-'+tag).find('.song-rating-change').css('opacity','0');
                       $('.block-'+tag).animate({
                         marginTop: ((i+1)*105) + 'px',
                         opacity: 1
                       },500,function(){
-
+                        $(this).find('.song-rating-change').css('opacity','1');
                       });
                     }else{
                       el.addClass('rank');
@@ -171,6 +215,7 @@
                         checklower(el,1);
                       } */
                       //alert(index);
+                      el.find('.song-rating-change').css('opacity','0');
                       el.animate({
                         marginTop: ((i+1)*105) + 'px'
                       },500,function(){
@@ -181,7 +226,24 @@
                         $(this).data('id',index);
                         var change = parseInt($(this).find('.song-rating').html())-index-1;
                         $(this).find('.song-rating').html(index+1);
-                        $(this).find('.song-rating-change').html(change);
+                        if(change==0){
+                          $(this).find('.song-rating-change').css('background-image','url(/public/image/rating-same.svg)');
+                          $(this).find('.song-rating-change').html('&nbsp;&nbsp;&nbsp;&nbsp;');
+                        }else if(change<0){
+                          $(this).find('.song-rating-change').css('background-image','url(/public/image/rating-low.svg)');
+                          $(this).find('.song-rating-change').html((change*-1));
+                          $(this).find('.song-rating-change').css('color','#CC6262');
+                        }else{
+                          $(this).find('.song-rating-change').css('background-image','url(/public/image/rating-high.svg)');
+                          $(this).find('.song-rating-change').html(change);
+                          $(this).find('.song-rating-change').css('color','#60CC6A');
+                        }
+                        $(this).find('.song-rating-change').css('opacity','1');
+                        $('.progressbar').css('width','100%');
+                        var t = setTimeout(function(){
+                          $('.progressbar').css('opacity','0');
+                          $('.progressbar').css('width','0%');
+                        },300);
                       });
                     }
                   }
