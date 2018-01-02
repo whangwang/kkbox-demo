@@ -272,6 +272,11 @@
 
 
     $(window).scroll(function(){
+      if($(window).scrollTop()>20){
+        $('.search-area').find('h1').hide();
+      }else{
+        $('.search-area').find('h1').show();
+      }
       $('.container-fluid').css('box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
       $('.container-fluid').css('-moz-box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
       $('.container-fluid').css('-webkit-box-shadow','0px 4px 117px -20px rgba(0,0,0,'+Math.min(0.69,parseInt($(window).scrollTop())*0.0345)+')');
