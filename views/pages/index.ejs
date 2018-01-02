@@ -50,13 +50,15 @@
         var i = 0;
         $('body').on('click','.playlist-remove',function(){
           var tar = $(this).parent().attr('sid');
-          $('.song-'+String(tar)).remove();
+          var ran = $(this).parent().attr('rid');
+          $('.song-'+String(tar)+'-'+String(ran)).remove();
         });
         $('body').on('click','.song-add',function(){
           var artist = String($(this).parent().parent().find('.song-info').find('p').text()).split("|")[0];
           var bg = $(this).parent().parent().find('.square-img').css('background-image')
           bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
-          $('.search-playlist').append('<hr class="song-'+String($(this).parent().parent().attr('sid'))+'"><div class="playlist-block song-'+String($(this).parent().parent().attr('sid'))+'" sid="'+String($(this).parent().parent().attr('sid'))+'"><div class="glyphicon glyphicon-remove-sign playlist-remove"></div><div class="song-img" style="background-image: url('+bg+');" ></div><p>'+$(this).parent().parent().find('.song-info').find('h5').html()+'</p><p>'+artist+'</p></div>');
+          var ran = parseInt(Math.random()*100000);
+          $('.search-playlist').append('<hr class="song-'+String($(this).parent().parent().attr('sid'))+'-'+ran+'"><div class="playlist-block song-'+String($(this).parent().parent().attr('sid'))+'-'+ran+'" rid="'+ran+'" sid="'+String($(this).parent().parent().attr('sid'))+'"><div class="glyphicon glyphicon-remove-sign playlist-remove"></div><div class="song-img" style="background-image: url('+bg+');" ></div><p>'+$(this).parent().parent().find('.song-info').find('h5').html()+'</p><p>'+artist+'</p></div>');
         });
         $('body').on({
           'mouseenter': function(){
